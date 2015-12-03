@@ -409,6 +409,28 @@
   // Example:
   // _.zip(['a','b','c','d'], [1,2,3]) returns [['a',1], ['b',2], ['c',3], ['d',undefined]]
   _.zip = function() {
+    var arrayCount = arguments.length;
+    var maxLength = 0;
+    var zipped = [];
+
+    // Find max length of arrays in arguments
+    _.each(arguments, function(arr) {
+      if (arr.length > maxLength) {
+        maxLength = arr.length;
+      }
+    });
+
+    // Keep looping until zipped is same size as largest array
+    for (var i = 0; i < maxLength; i++) {
+      // Create temp array to hold each array's current index value
+      var arr = [];
+      for (var j = 0; j < arrayCount; j++) {
+        arr.push(arguments[j][i]);
+      }
+      zipped.push(arr);
+    }
+
+    return zipped;
   };
 
   // Takes a multidimensional array and converts it to a one-dimensional array.
