@@ -479,5 +479,20 @@
   //
   // Note: This is difficult! It may take a while to implement.
   _.throttle = function(func, wait) {
+    var waitLonger = false;
+
+    return function() {
+      // Only returns function call if do not have to wait longer
+      if (!waitLonger) {
+        waitLonger = true;
+        // Set waiting period right before function call is returned
+        setTimeout(function() {
+          waitLonger = false;
+        }, wait);
+
+        return func.apply(this, arguments);
+      }
+    }
+
   };
 }());
